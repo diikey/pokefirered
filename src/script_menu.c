@@ -498,6 +498,28 @@ static const struct MenuAction sMultichoiceList_TrainerTowerMode[] = {
     { gOtherText_Exit }
 };
 
+static const struct MenuAction sMultichoiceList_StatNurseService[] = {
+    { gText_NatureChange },
+    { gText_EVChange },
+    { gOtherText_Exit }
+};
+
+static const struct MenuAction sMultichoiceList_NatureIncreaseStat[] = {
+    { gText_ItemEffect_Attack },
+    { gText_ItemEffect_Defense },
+    { gText_ItemEffect_Speed },
+    { gText_ItemEffect_SpAtk },
+    { gText_ItemEffect_SpDef },
+};
+
+static const struct MenuAction sMultichoiceList_NatureDecreaseStat[] = {
+    { gText_ItemEffect_Attack },
+    { gText_ItemEffect_Defense },
+    { gText_ItemEffect_Speed },
+    { gText_ItemEffect_SpAtk },
+    { gText_ItemEffect_SpDef },
+};
+
 static const struct MenuAction sMultichoiceList_Exit[] = {
     { gOtherText_Exit }
 };
@@ -568,6 +590,9 @@ static const struct MultichoiceListStruct sMultichoiceLists[] = {
     [MULTICHOICE_62]                                         = MULTICHOICE(sMultichoiceList_62),
     [MULTICHOICE_JOIN_OR_LEAD]                               = MULTICHOICE(sMultichoiceList_JoinOrLead),
     [MULTICHOICE_TRAINER_TOWER_MODE]                         = MULTICHOICE(sMultichoiceList_TrainerTowerMode),
+    [MULTICHOICE_STAT_NURSE_SERVICE]                         = MULTICHOICE(sMultichoiceList_StatNurseService),
+    [MULTICHOICE_NATURE_INCREASE_STAT]                       = MULTICHOICE(sMultichoiceList_NatureIncreaseStat),
+    [MULTICHOICE_NATURE_DECREASE_STAT]                       = MULTICHOICE(sMultichoiceList_NatureDecreaseStat),
 };
 
 // From Cool to Berries goes unused

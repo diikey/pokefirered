@@ -1545,4 +1545,8 @@ extern const u8 gText_PokeSum_EggOrigin_NicePlace[];
 extern const u8 gText_PokeSum_EggOrigin_Spa[];
 extern const u8 gText_PokeSum_EggOrigin_Trade[];
 
+// pokemon_center_stat_screen
+extern const u8 gText_NatureChange[];
+extern const u8 gText_EVChange[];
+
 #endif //GUARD_STRINGS_H
