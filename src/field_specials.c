@@ -41,6 +41,7 @@
 #include "constants/menu.h"
 #include "constants/event_objects.h"
 #include "constants/metatile_labels.h"
+#include "constants/party_menu.h"
 
 static EWRAM_DATA u8 sElevatorCurrentFloorWindowId = 0;
 static EWRAM_DATA u16 sElevatorScroll = 0;
@@ -1514,6 +1515,32 @@ void ForcePlayerToStartSurfing(void)
 {
     SetHelpContext(HELPCONTEXT_SURFING);
     SetPlayerAvatarTransitionFlags(PLAYER_AVATAR_FLAG_SURFING);
+}
+
+// Badge + HM item in the Bag, no party mon needs to know the move.
+void CanUseCut(void)
+{
+    gSpecialVar_Result = CanUseHMFieldMove(FIELD_MOVE_CUT);
+}
+
+void CanUseRockSmash(void)
+{
+    gSpecialVar_Result = CanUseHMFieldMove(FIELD_MOVE_ROCK_SMASH);
+}
+
+void CanUseStrength(void)
+{
+    gSpecialVar_Result = CanUseHMFieldMove(FIELD_MOVE_STRENGTH);
+}
+
+void CanUseWaterfall(void)
+{
+    gSpecialVar_Result = CanUseHMFieldMove(FIELD_MOVE_WATERFALL);
+}
+
+void CanUseSurf(void)
+{
+    gSpecialVar_Result = CanUseHMFieldMove(FIELD_MOVE_SURF);
 }
 
 static const u16 sStarterSpecies[] = {

@@ -15,7 +15,6 @@
 #include "constants/maps.h"
 
 static void Task_FieldEffectShowMon_Init(u8 taskId);
-static void Task_FieldEffectShowMon_WaitFldeff(u8 taskId);
 static void Task_FieldEffectShowMon_WaitPlayerAnim(u8 taskId);
 static void Task_FieldEffectShowMon_Cleanup(u8 taskId);
 static void FieldCallback_UseRockSmash(void);
@@ -52,33 +51,15 @@ static void Task_FieldEffectShowMon_Init(u8 taskId)
     if (!ObjectEventIsMovementOverridden(&gObjectEvents[mapObjId])
      || ObjectEventClearHeldMovementIfFinished(&gObjectEvents[mapObjId]))
     {
-        if (gMapHeader.mapType == MAP_TYPE_UNDERWATER)
-        {
-            // Leftover from RS, inhibits the player anim while underwater.
-            FieldEffectStart(FLDEFF_FIELD_MOVE_SHOW_MON_INIT);
-            gTasks[taskId].func = Task_FieldEffectShowMon_WaitFldeff;
-        }
-        else
-        {
-            StartPlayerAvatarSummonMonForFieldMoveAnim();
-            ObjectEventSetHeldMovement(&gObjectEvents[mapObjId], MOVEMENT_ACTION_START_ANIM_IN_DIRECTION);
-            gTasks[taskId].func = Task_FieldEffectShowMon_WaitPlayerAnim;
-        }
+        StartPlayerAvatarSummonMonForFieldMoveAnim();
+        ObjectEventSetHeldMovement(&gObjectEvents[mapObjId], MOVEMENT_ACTION_START_ANIM_IN_DIRECTION);
+        gTasks[taskId].func = Task_FieldEffectShowMon_WaitPlayerAnim;
     }
 }
 
 static void Task_FieldEffectShowMon_WaitPlayerAnim(u8 taskId)
 {
     if (ObjectEventCheckHeldMovementStatus(&gObjectEvents[gPlayerAvatar.objectEventId]) == TRUE)
-    {
-        FieldEffectStart(FLDEFF_FIELD_MOVE_SHOW_MON_INIT);
-        gTasks[taskId].func = Task_FieldEffectShowMon_WaitFldeff;
-    }
-}
-
-static void Task_FieldEffectShowMon_WaitFldeff(u8 taskId)
-{
-    if (!FieldEffectActiveListContains(FLDEFF_FIELD_MOVE_SHOW_MON))
     {
         gFieldEffectArguments[1] = GetPlayerFacingDirection();
         if (gFieldEffectArguments[1] == DIR_SOUTH)
@@ -91,7 +72,6 @@ static void Task_FieldEffectShowMon_WaitFldeff(u8 taskId)
             gFieldEffectArguments[2] = 3;
         ObjectEventSetGraphicsId(&gObjectEvents[gPlayerAvatar.objectEventId], GetPlayerAvatarGraphicsIdByCurrentState());
         StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], gFieldEffectArguments[2]);
-        FieldEffectActiveListRemove(FLDEFF_FIELD_MOVE_SHOW_MON);
         gTasks[taskId].func = Task_FieldEffectShowMon_Cleanup;
     }
 }
@@ -116,7 +96,6 @@ bool8 SetUpFieldMove_RockSmash(void)
 
 static void FieldCallback_UseRockSmash(void)
 {
-    gFieldEffectArguments[0] = GetCursorSelectionMonId();
     ScriptContext_SetupScript(EventScript_FldEffRockSmash);
 }
 

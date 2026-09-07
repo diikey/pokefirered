@@ -34,6 +34,7 @@
 #include "option_menu.h"
 #include "save_menu_util.h"
 #include "help_system.h"
+#include "hm_menu.h"
 #include "constants/songs.h"
 #include "constants/field_weather.h"
 #include "sloopsvc.h"
@@ -42,6 +43,7 @@ enum StartMenuOption
 {
     STARTMENU_POKEDEX = 0,
     STARTMENU_POKEMON,
+    STARTMENU_USE_HM,
     STARTMENU_BAG,
     STARTMENU_PLAYER,
     STARTMENU_SAVE,
@@ -81,6 +83,7 @@ static void StartMenu_FadeScreenIfLeavingOverworld(void);
 static bool8 StartMenuPokedexSanityCheck(void);
 static bool8 StartMenuPokedexCallback(void);
 static bool8 StartMenuPokemonCallback(void);
+static bool8 StartMenuUseHMCallback(void);
 static bool8 StartMenuBagCallback(void);
 static bool8 StartMenuPlayerCallback(void);
 static bool8 StartMenuSaveCallback(void);
@@ -116,6 +119,7 @@ static void CloseStartMenu(void);
 static const struct MenuAction sStartMenuActionTable[] = {
     [STARTMENU_POKEDEX] = { gText_MenuPokedex, {.u8_void = StartMenuPokedexCallback} },
     [STARTMENU_POKEMON] = { gText_MenuPokemon, {.u8_void = StartMenuPokemonCallback} },
+    [STARTMENU_USE_HM]  = { gText_MenuUseHM,   {.u8_void = StartMenuUseHMCallback} },
     [STARTMENU_BAG]     = { gText_MenuBag,     {.u8_void = StartMenuBagCallback} },
     [STARTMENU_PLAYER]  = { gText_MenuPlayer,  {.u8_void = StartMenuPlayerCallback} },
     [STARTMENU_SAVE]    = { gText_MenuSave,    {.u8_void = StartMenuSaveCallback} },
@@ -138,6 +142,7 @@ static const struct WindowTemplate sSafariZoneStatsWindowTemplate = {
 static const u8 *const sStartMenuDescPointers[] = {
     gStartMenuDesc_Pokedex,
     gStartMenuDesc_Pokemon,
+    gStartMenuDesc_UseHM,
     gStartMenuDesc_Bag,
     gStartMenuDesc_Player,
     gStartMenuDesc_Save,
@@ -216,6 +221,7 @@ static void SetUpStartMenu_NormalField(void)
         AppendToStartMenuItems(STARTMENU_POKEDEX);
     if (FlagGet(FLAG_SYS_POKEMON_GET) == TRUE)
         AppendToStartMenuItems(STARTMENU_POKEMON);
+    AppendToStartMenuItems(STARTMENU_USE_HM);
     AppendToStartMenuItems(STARTMENU_BAG);
     AppendToStartMenuItems(STARTMENU_PLAYER);
     AppendToStartMenuItems(STARTMENU_SAVE);
@@ -497,6 +503,19 @@ static bool8 StartMenuBagCallback(void)
         DestroySafariZoneStatsWindow();
         CleanupOverworldWindowsAndTilemaps();
         SetMainCallback2(CB2_BagMenuFromStartMenu);
+        return TRUE;
+    }
+    return FALSE;
+}
+
+static bool8 StartMenuUseHMCallback(void)
+{
+    if (!gPaletteFade.active)
+    {
+        PlayRainStoppingSoundEffect();
+        DestroySafariZoneStatsWindow();
+        CleanupOverworldWindowsAndTilemaps();
+        SetMainCallback2(CB2_HMMenuFromStartMenu);
         return TRUE;
     }
     return FALSE;

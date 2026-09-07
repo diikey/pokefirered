@@ -351,6 +351,8 @@ extern const u8 gText_NoMoreThanTwoMayEnter[];
 extern const u8 gText_NoMoreThanThreeMayEnter[];
 extern const u8 gText_PauseUntilPress[];
 extern const u8 gText_CantUseUntilNewBadge[];
+extern const u8 gText_HMItemNotInBag[];
+extern const u8 gText_HMMenuNeedBadge[];
 extern const u8 gText_ReturnToHealingSpot[];
 extern const u8 gText_EscapeFromHereAndReturnTo[];
 extern const u8 gText_PkmnCuredOfPoison[];
@@ -624,6 +626,7 @@ extern const u8 gText_MailReturnedToBagMessageErased[];
 
 // start_menu
 extern const u8 gText_MenuPokedex[];
+extern const u8 gText_MenuUseHM[];
 extern const u8 gText_MenuBag[];
 extern const u8 gText_MenuPlayer[];
 extern const u8 gText_MenuSave[];
@@ -633,6 +636,7 @@ extern const u8 gText_MenuRetire[];
 extern const u8 gText_MenuSafariStats[];
 extern const u8 gStartMenuDesc_Pokedex[];
 extern const u8 gStartMenuDesc_Pokemon[];
+extern const u8 gStartMenuDesc_UseHM[];
 extern const u8 gStartMenuDesc_Bag[];
 extern const u8 gStartMenuDesc_Save[];
 extern const u8 gStartMenuDesc_Option[];

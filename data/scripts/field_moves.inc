@@ -1,11 +1,8 @@
 EventScript_CutTree::
 	goto_if_questlog EventScript_ReleaseEnd
 	lockall
-	goto_if_unset FLAG_BADGE02_GET, EventScript_CantCutTree
-	checkpartymove MOVE_CUT
-	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantCutTree
-	setfieldeffectargument 0, VAR_RESULT
-	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	special CanUseCut
+	goto_if_eq VAR_RESULT, FALSE, EventScript_CantCutTree
 	buffermovename STR_VAR_2, MOVE_CUT
 	msgbox Text_CutTreeDown, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_DontCutTree
@@ -50,7 +47,7 @@ Text_CutTreeDown::
 	.string "Would you like to CUT it?$"
 
 Text_MonUsedMove::
-	.string "{STR_VAR_1} used {STR_VAR_2}!$"
+	.string "{STR_VAR_2} was used!$"
 
 Text_TreeCanBeCutDown::
 	.string "This tree looks like it can be CUT\n"
@@ -59,11 +56,8 @@ Text_TreeCanBeCutDown::
 EventScript_RockSmash::
 	goto_if_questlog EventScript_ReleaseEnd
 	lockall
-	goto_if_unset FLAG_BADGE06_GET, EventScript_CantSmashRock
-	checkpartymove MOVE_ROCK_SMASH
-	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantSmashRock
-	setfieldeffectargument 0, VAR_RESULT
-	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	special CanUseRockSmash
+	goto_if_eq VAR_RESULT, FALSE, EventScript_CantSmashRock
 	buffermovename STR_VAR_2, MOVE_ROCK_SMASH
 	msgbox Text_UseRockSmash, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_DontSmashRock
@@ -119,11 +113,9 @@ Text_MonMaySmashRock::
 EventScript_StrengthBoulder::
 	goto_if_questlog EventScript_ReleaseEnd
 	lockall
-	goto_if_unset FLAG_BADGE04_GET, EventScript_CantMoveBoulder
 	goto_if_set FLAG_SYS_USE_STRENGTH, EventScript_AlreadyUsedStrength
-	checkpartymove MOVE_STRENGTH
-	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantMoveBoulder
-	setfieldeffectargument 0, VAR_RESULT
+	special CanUseStrength
+	goto_if_eq VAR_RESULT, FALSE, EventScript_CantMoveBoulder
 	msgbox Text_UseStrength, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_DontUseStrength
 	closemessage
@@ -163,8 +155,8 @@ Text_UseStrength::
 	.string "Would you like to use STRENGTH?$"
 
 Text_MonUsedStrengthCanMoveBoulders::
-	.string "{STR_VAR_1} used STRENGTH!\p"
-	.string "{STR_VAR_1}'s STRENGTH made it\n"
+	.string "STRENGTH was used!\p"
+	.string "STRENGTH made it\n"
 	.string "possible to move boulders around!$"
 
 Text_MonMayPushBoulder::
@@ -178,10 +170,8 @@ Text_StrengthMadeMovingBouldersPossible::
 EventScript_Waterfall::
 	goto_if_questlog EventScript_ReleaseEnd
 	lockall
-	checkpartymove MOVE_WATERFALL
-	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_WaterCrashingDown
-	bufferpartymonnick STR_VAR_1, VAR_RESULT
-	setfieldeffectargument 0, VAR_RESULT
+	special CanUseWaterfall
+	goto_if_eq VAR_RESULT, FALSE, EventScript_WaterCrashingDown
 	msgbox Text_UseWaterfall, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_EndWaterfall
 	msgbox Text_MonUsedWaterfall
@@ -205,7 +195,7 @@ Text_UseWaterfall::
 	.string "Would you like to use WATERFALL?$"
 
 Text_MonUsedWaterfall::
-	.string "{STR_VAR_1} used WATERFALL.$"
+	.string "WATERFALL was used.$"
 
 @ Unused leftover from R/S
 EventScript_DeepWater::

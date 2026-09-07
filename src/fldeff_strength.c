@@ -19,7 +19,6 @@ bool8 SetUpFieldMove_Strength(void)
     }
     else
     {
-        gSpecialVar_Result = GetCursorSelectionMonId();
         gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
         gPostMenuFieldCallback = FieldCB_UseStrength;
         return TRUE;
@@ -27,7 +26,6 @@ bool8 SetUpFieldMove_Strength(void)
 }
 static void FieldCB_UseStrength(void)
 {
-    gFieldEffectArguments[0] = GetCursorSelectionMonId();
     ScriptContext_SetupScript(EventScript_FldEffStrength);
 }
 
@@ -35,7 +33,6 @@ bool8 FldEff_UseStrength(void)
 {
     u8 taskId = CreateFieldEffectShowMon();
     FLDEFF_SET_FUNC_TO_DATA(ShowMonCB_UseStrength);
-    GetMonNickname(&gPlayerParty[gFieldEffectArguments[0]], gStringVar1);
     return FALSE;
 }
 
