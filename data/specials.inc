@@ -168,6 +168,7 @@ gSpecials::
 	def_special StartOldManTutorialBattle
 	def_special ChangePokemonNickname
 	def_special ChoosePartyMon
+	def_special SetChosenMonNature
 	def_special NullFieldSpecial  @ Berry Blender/Roulette specials
 	def_special NullFieldSpecial
 	def_special NullFieldSpecial

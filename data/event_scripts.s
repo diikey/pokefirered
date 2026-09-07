@@ -904,6 +904,20 @@ Text_RestoredPkmnToFullHealth::
 
 	.include "data/text/surf.inc"
 
+Text_WelcomeWhatService::
+	.string "Welcome! What service are you\n"
+	.string "looking for?$"
+
+Text_NatureChange_WhichStatUp::
+	.string "Which Stat needs to go up?$"
+
+Text_NatureChange_WhichStatDown::
+	.string "Which Stat goes down?$"
+
+Text_NatureChange_Done::
+	.string "Your pokemon has successfully\n"
+	.string "changed nature!$"
+
 @ Unused, from R/S
 Text_DoorOpenedFarAway::
 	.string "どこか　とおくの　とびらが\n"
@@ -1065,6 +1079,7 @@ EventScript_ResetAllMapFlags::
 
 	.include "data/scripts/hall_of_fame.inc"
 	.include "data/scripts/pkmn_center_nurse.inc"
+	.include "data/scripts/pkmn_center_stat_nurse.inc"
 	.include "data/scripts/obtain_item.inc"
 	.include "data/scripts/pc.inc"
 
