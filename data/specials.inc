@@ -169,6 +169,7 @@ gSpecials::
 	def_special ChangePokemonNickname
 	def_special ChoosePartyMon
 	def_special SetChosenMonNature
+	def_special OpenEVAllocatorScreen
 	def_special NullFieldSpecial  @ Berry Blender/Roulette specials
 	def_special NullFieldSpecial
 	def_special NullFieldSpecial

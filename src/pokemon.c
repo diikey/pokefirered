@@ -5077,6 +5077,8 @@ void SetMonNature(struct Pokemon *mon, u8 nature)
 
     boxMon->checksum = CalculateBoxMonChecksum(boxMon);
     EncryptBoxMon(boxMon);
+
+    CalculateMonStats(mon);
 }
 
 static u8 GetNatureFromPersonality(u32 personality)
