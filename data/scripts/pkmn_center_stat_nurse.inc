@@ -13,6 +13,7 @@ EventScript_PkmnCenterStatNurse::
 EventScript_StatNurse_NatureChange::
     special ChoosePartyMon
     waitstate
+    goto_if_ge VAR_0x8004, PARTY_SIZE, EventScript_StatNurse_NatureChange_Canceled
     message Text_NatureChange_WhichStatUp
     waitmessage
     multichoice 1, 1, MULTICHOICE_NATURE_INCREASE_STAT, FALSE
@@ -35,5 +36,13 @@ EventScript_StatNurse_NatureChange_Canceled::
 EventScript_StatNurse_EVChange::
 	special ChoosePartyMon
 	waitstate
+	goto_if_ge VAR_0x8004, PARTY_SIZE, EventScript_StatNurse_EVChange_Canceled
 	special OpenEVAllocatorScreen
+	waitstate
+	switch VAR_RESULT
+	case FALSE, EventScript_StatNurse_EVChange_Canceled
+	msgbox Text_EVChange_Done
+	return
+
+EventScript_StatNurse_EVChange_Canceled::
 	return

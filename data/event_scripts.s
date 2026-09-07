@@ -915,8 +915,12 @@ Text_NatureChange_WhichStatDown::
 	.string "Which Stat goes down?$"
 
 Text_NatureChange_Done::
-	.string "Your pokemon has successfully\n"
+	.string "Your POKéMON has successfully\n"
 	.string "changed nature!$"
+
+Text_EVChange_Done::
+	.string "We've adjusted your POKéMON's\n"
+	.string "effort values. Come again!$"
 
 @ Unused, from R/S
 Text_DoorOpenedFarAway::
