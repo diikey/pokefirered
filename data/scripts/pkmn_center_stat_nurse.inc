@@ -35,4 +35,5 @@ EventScript_StatNurse_NatureChange_Canceled::
 EventScript_StatNurse_EVChange::
 	special ChoosePartyMon
 	waitstate
+	special OpenEVAllocatorScreen
 	return
