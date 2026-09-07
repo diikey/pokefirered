@@ -330,6 +330,7 @@ static void CloseEVAllocatorScreen(u8 taskId, bool8 apply)
         CalculateMonStats(sEVAllocator->mon);
     }
 
+    gSpecialVar_Result = apply;
     FreeAllWindowBuffers();
     FREE_AND_SET_NULL(sEVAllocator);
     DestroyTask(taskId);
