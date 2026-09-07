@@ -30,6 +30,7 @@
 #include "constants/event_objects.h"
 #include "constants/maps.h"
 #include "constants/metatile_behaviors.h"
+#include "constants/party_menu.h"
 
 #define SIGNPOST_POKECENTER 0
 #define SIGNPOST_POKEMART 1
@@ -600,14 +601,16 @@ static const u8 *GetInteractedMetatileScript(struct MapPosition *position, u8 me
 
 static const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metatileBehavior, u8 direction)
 {
-    if (MetatileBehavior_IsFastWater(metatileBehavior) == TRUE && PartyHasMonWithSurf() == TRUE)
+    bool8 canSurf = !TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING) && CanUseHMFieldMove(FIELD_MOVE_SURF);
+
+    if (MetatileBehavior_IsFastWater(metatileBehavior) == TRUE && canSurf == TRUE)
         return EventScript_CurrentTooFast;
-    if (FlagGet(FLAG_BADGE05_GET) == TRUE && PartyHasMonWithSurf() == TRUE && IsPlayerFacingSurfableFishableWater() == TRUE)
+    if (canSurf == TRUE && IsPlayerFacingSurfableFishableWater() == TRUE)
         return EventScript_UseSurf;
 
     if (MetatileBehavior_IsWaterfall(metatileBehavior) == TRUE)
     {
-        if (FlagGet(FLAG_BADGE07_GET) == TRUE && IsPlayerSurfingNorth() == TRUE)
+        if (CanUseHMFieldMove(FIELD_MOVE_WATERFALL) == TRUE && IsPlayerSurfingNorth() == TRUE)
             return EventScript_Waterfall;
         else
             return EventScript_CantUseWaterfall;

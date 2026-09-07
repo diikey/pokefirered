@@ -3,7 +3,7 @@ Text_WantToSurf::
 	.string "Would you like to SURF?$"
 
 Text_UsedSurf::
-	.string "{STR_VAR_1} used SURF!$"
+	.string "SURF was used!$"
 
 Text_CurrentTooFast::
 	.string "The current is much too fast!\n"

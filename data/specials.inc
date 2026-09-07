@@ -364,6 +364,11 @@ gSpecials::
 	def_special GetDaycarePokemonCount
 	def_special CloseElevatorCurrentFloorWindow
 	def_special ForcePlayerToStartSurfing
+	def_special CanUseCut
+	def_special CanUseRockSmash
+	def_special CanUseStrength
+	def_special CanUseWaterfall
+	def_special CanUseSurf
 	def_special GetStarterSpecies
 	def_special SetSeenMon
 	def_special VsSeekerResetObjectMovementAfterChargeComplete

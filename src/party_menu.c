@@ -165,9 +165,6 @@ static void CursorCB_Register(u8 taskId);
 static void CursorCB_Trade1(u8 taskId);
 static void CursorCB_Trade2(u8 taskId);
 static void CursorCB_FieldMove(u8 taskId);
-static bool8 SetUpFieldMove_Fly(void);
-static bool8 SetUpFieldMove_Waterfall(void);
-static bool8 SetUpFieldMove_Surf(void);
 static void CB2_InitPartyMenu(void);
 static void ResetPartyMenu(void);
 static bool8 ShowPartyMenu(void);
@@ -2966,10 +2963,12 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
 
     sPartyMenuInternal->numActions = 0;
     AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, CURSOR_OPTION_SUMMARY);
-    // Add field moves to action list
+    // Add field moves to action list. HMs (FIELD_MOVE_FLASH..FIELD_MOVE_WATERFALL) are
+    // skipped here on purpose - they no longer need to be known by a party mon to be
+    // used, and are used through the Start Menu's "USE HM" option instead (hm_menu.c).
     for (i = 0; i < MAX_MON_MOVES; ++i)
     {
-        for (j = 0; sFieldMoves[j] != FIELD_MOVE_END; ++j)
+        for (j = FIELD_MOVE_TELEPORT; sFieldMoves[j] != FIELD_MOVE_END; ++j)
         {
             if (GetMonData(&mons[slotId], i + MON_DATA_MOVE1) == sFieldMoves[j])
             {
@@ -4054,17 +4053,16 @@ static void DisplayCantUseFlashMessage(void)
 
 static void FieldCallback_Surf(void)
 {
-    gFieldEffectArguments[0] = GetCursorSelectionMonId();
     FieldEffectStart(FLDEFF_USE_SURF);
 }
 
-static bool8 SetUpFieldMove_Surf(void)
+bool8 SetUpFieldMove_Surf(void)
 {
     s16 x, y;
     
     GetXYCoordsOneStepInFrontOfPlayer(&x, &y);
     if (MetatileBehavior_IsFastWater(MapGridGetMetatileBehaviorAt(x, y)) != TRUE
-     && PartyHasMonWithSurf() == TRUE
+     && CanUseHMFieldMove(FIELD_MOVE_SURF) == TRUE
      && IsPlayerFacingSurfableFishableWater() == TRUE)
     {
         gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
@@ -4096,7 +4094,7 @@ static void DisplayCantUseSurfMessage(void)
     }
 }
 
-static bool8 SetUpFieldMove_Fly(void)
+bool8 SetUpFieldMove_Fly(void)
 {
     if (Overworld_MapTypeAllowsTeleportAndFly(gMapHeader.mapType) == TRUE)
         return TRUE;
@@ -4111,11 +4109,10 @@ void CB2_ReturnToPartyMenuFromFlyMap(void)
 
 static void FieldCallback_Waterfall(void)
 {
-    gFieldEffectArguments[0] = GetCursorSelectionMonId();
     FieldEffectStart(FLDEFF_USE_WATERFALL);
 }
 
-static bool8 SetUpFieldMove_Waterfall(void)
+bool8 SetUpFieldMove_Waterfall(void)
 {
     s16 x, y;
 
